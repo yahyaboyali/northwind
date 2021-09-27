@@ -37,4 +37,39 @@ public class ProductManager implements ProductService {
         return new SuccessResult("ürün eklendi");
     }
 
+    @Override
+    public DataResult<Product> getByProductName(String productName) {
+        return new SuccessDataResult<Product>(this.productDao.getByProductName(productName), "data listelendi");
+    }
+
+    @Override
+    public DataResult<Product> getByProductNameAndCategoryId(String productName, int categoryId) {
+        return new SuccessDataResult<Product>(this.productDao.getByProductNameAndCategoryId(productName, categoryId), "data listelendi");
+    }
+
+    @Override
+    public DataResult<List<Product>> getByProductNameOrCategoryId(String productName, int categoryId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public DataResult<List<Product>> getByCategoryIdIn(List<Integer> categories) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public DataResult<List<Product>> getByProductNameContains(String productName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public DataResult<List<Product>> getByProductNameStartsWith(String productName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public DataResult<List<Product>> getByNameAndCategory(String productName, int categoryId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

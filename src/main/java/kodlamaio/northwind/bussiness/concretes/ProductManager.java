@@ -13,6 +13,7 @@ import kodlamaio.northwind.core.utilities.results.SuccessDataResult;
 import kodlamaio.northwind.core.utilities.results.SuccessResult;
 import kodlamaio.northwind.dataAccess.abstracts.ProductDao;
 import kodlamaio.northwind.entities.concretes.Product;
+import kodlamaio.northwind.entities.dtos.ProductWithCategoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -52,50 +53,50 @@ public class ProductManager implements ProductService {
 
     @Override
     public DataResult<List<Product>> getByProductNameOrCategoryId(String productName, int categoryId) {
-        return new SuccessDataResult<List<Product>> 
-        (this.productDao.getByProductNameOrCategory_CategoryId(productName, categoryId),"data listelendi");
+        return new SuccessDataResult<List<Product>>(this.productDao.getByProductNameOrCategory_CategoryId(productName, categoryId), "data listelendi");
     }
 
     @Override
     public DataResult<List<Product>> getByCategoryIdIn(List<Integer> categories) {
-        return new SuccessDataResult<List<Product>>
-                (this.productDao.getByCategoryIn(categories),"data listelendi");
+        return new SuccessDataResult<List<Product>>(this.productDao.getByCategoryIn(categories), "data listelendi");
     }
 
     @Override
     public DataResult<List<Product>> getByProductNameContains(String productName) {
-        return new SuccessDataResult<List<Product>> 
-                (this.productDao.getByProductNameContains(productName),"data listelendi");
+        return new SuccessDataResult<List<Product>>(this.productDao.getByProductNameContains(productName), "data listelendi");
     }
 
     @Override
     public DataResult<List<Product>> getByProductNameStartsWith(String productName) {
-        return new SuccessDataResult<List<Product>> 
-                (this.productDao.getByProductNameStartsWith(productName),"data listelendi");
+        return new SuccessDataResult<List<Product>>(this.productDao.getByProductNameStartsWith(productName), "data listelendi");
     }
 
     @Override
     public DataResult<List<Product>> getByNameAndCategory(String productName, int categoryId) {
-        return new SuccessDataResult<List<Product>>
-                (this.productDao.getByNameAndCategory(productName, categoryId),"data listelendi");
+        return new SuccessDataResult<List<Product>>(this.productDao.getByNameAndCategory(productName, categoryId), "data listelendi");
     }
 
     @Override
     public DataResult<List<Product>> getAll(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo-1, pageSize); // -1 verme sebebimiz 0 dan başlıyor 1. sayfayı değil 2 yi gösteriyor
-        return new SuccessDataResult<List<Product>>( this.productDao.findAll(pageable).getContent(),"başarılı");
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize); // -1 verme sebebimiz 0 dan başlıyor 1. sayfayı değil 2 yi gösteriyor
+        return new SuccessDataResult<List<Product>>(this.productDao.findAll(pageable).getContent(), "başarılı");
         /*
         pageable ile çalışınca dönüş tipi ayrı olduğundan .getContent yapmalısın yoksa hata alırsın
         sayfa safya getirecek yapı
-        */
+         */
     }
 
     @Override
     public DataResult<List<Product>> getAllSorted() {
-        Sort sort = Sort.by(Sort.Direction.ASC,"productName");// , den sonrası neye göre sıralayacak tabi ki ürün adına göre
+        Sort sort = Sort.by(Sort.Direction.ASC, "productName");// , den sonrası neye göre sıralayacak tabi ki ürün adına göre
         // asc a dan başlar z ye kadar 
         // desc z den başlar a ya kadar
-        return new SuccessDataResult<List<Product>>(this.productDao.findAll(sort),"başarılı");
+        return new SuccessDataResult<List<Product>>(this.productDao.findAll(sort), "başarılı");
+    }
+
+    @Override
+    public DataResult<List<ProductWithCategoryDto>> getProductWithCategoryDetails() {
+        return new SuccessDataResult<List<ProductWithCategoryDto>>(this.productDao.getProductWithCategoryDetails(), "Data listelendi");
     }
 
 }
